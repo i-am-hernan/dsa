@@ -9,23 +9,23 @@
  *     4   5    6
  */
 type TreeNode = {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
+	val: number;
+	left: TreeNode | null;
+	right: TreeNode | null;
 };
 
 const tree: TreeNode = {
-  val: 1,
-  left: {
-    val: 2,
-    left: { val: 4, left: null, right: null },
-    right: { val: 5, left: null, right: null }
-  },
-  right: {
-    val: 3,
-    left: null,
-    right: { val: 6, left: null, right: null }
-  }
+	val: 1,
+	left: {
+		val: 2,
+		left: { val: 4, left: null, right: null },
+		right: { val: 5, left: null, right: null }
+	},
+	right: {
+		val: 3,
+		left: null,
+		right: { val: 6, left: null, right: null }
+	}
 };
 
 /**
@@ -42,10 +42,10 @@ const tree: TreeNode = {
 const preOrderRecursiveDfs = (root: TreeNode | null, result: number [] = []): number [] => {
 	if(!root){
 		return result;}
-		result.push(root.val)
-		preOrderRecursiveDfs(root.left, result);
-		preOrderRecursiveDfs(root.right, result);
-		return result;
+	result.push(root.val)
+	preOrderRecursiveDfs(root.left, result);
+	preOrderRecursiveDfs(root.right, result);
+	return result;
 }
 
 const inOrderRecursiveDfs = (root: TreeNode | null, result: number [] = []) : number [] => {
@@ -94,12 +94,12 @@ const preOrderIterativeDfs = (root: TreeNode | null, result: number[] = [])  => 
  * D   E   F
  */
 const graph: Record<string, string[]> = {
-  A: ["B", "C"],
-  B: ["D", "E"],
-  C: ["F"],
-  D: [],
-  E: [],
-  F: []
+	A: ["B", "C"],
+	B: ["D", "E"],
+	C: ["F"],
+	D: [],
+	E: [],
+	F: []
 };
 
 /**
@@ -115,7 +115,7 @@ const preOrderRecursiveDfsGraph = (node: string, graph: Record<string, string[]>
 	result.push(node); 
 	for( const vertex of graph[node]){
 		if(!visited.has(vertex))
-		preOrderRecursiveDfsGraph(vertex, graph, result, visited)
+			preOrderRecursiveDfsGraph(vertex, graph, result, visited)
 
 	}
 	return result;

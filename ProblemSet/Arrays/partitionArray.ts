@@ -3,24 +3,24 @@ Given an unsorted array of integers. Find an element such that all the elements 
 Note that there can be more than one such elements. For example an array which is sorted in increasing order all elements follow the property. We need to find only one such element.
 */
 
-const FindPivot = (A: number[]) : number => {
-	const GreatestToTheLeft: number[] = []; 
+const FindPivot = (A: number[]): number => {
+	const GreatestToTheLeft: number[] = [];
 	const LeastToTheRight: number[] = [];
 
 	let max = Number.NEGATIVE_INFINITY;
-	for(const [i,num] of A.entries()){
-		if(num > max) max = num;
+	for (const [i, num] of A.entries()) {
+		if (num > max) max = num;
 		GreatestToTheLeft[i] = max;
 	}
 
 	let min = Number.POSITIVE_INFINITY;
-	for(let i = A.length - 1; i >= 0; i--){
-		if(A[i] < min) min = A[i];
+	for (let i = A.length - 1; i >= 0; i--) {
+		if (A[i] < min) min = A[i];
 		LeastToTheRight[i] = min;
 	}
 
-	for(let i = 1; i < A.length - 1; i++){
-		if(A[i] > GreatestToTheLeft[i-1] && A[i] < LeastToTheRight[i+1]){
+	for (let i = 1; i < A.length - 1; i++) {
+		if (A[i] > GreatestToTheLeft[i - 1] && A[i] < LeastToTheRight[i + 1]) {
 			return A[i];
 		}
 	}
@@ -31,6 +31,7 @@ const FindPivot = (A: number[]) : number => {
 console.log(FindPivot([4, 3, 2, 5, 8, 6, 7])); // should return 5
 console.log(FindPivot([1, 2, 3, 4, 5]));       // could return 2, 3, etc.
 console.log(FindPivot([5, 4, 3, 2, 1]));       // should return -1
+
 /*
  * Example:
  * {4, 3, 2, 5, 8, 6, 7} 

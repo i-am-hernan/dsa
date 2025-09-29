@@ -27,7 +27,7 @@ class Solution:
         len = getListLength(head)
         
         # Base cases
-        if not head or not head.next or k == 0:
+        if not head or not head.next or k%len == 0:
             return head
 
         # Traverse to the node rightmost before slicing the list
@@ -48,7 +48,8 @@ class Solution:
         list2Ptr.next = head
         return rotatedRightHead
 
-
+# Remember to create your own edge cases and test after initial implementation
+# First create a solution for most cases, then implement, then test against edge cases
 
 
 

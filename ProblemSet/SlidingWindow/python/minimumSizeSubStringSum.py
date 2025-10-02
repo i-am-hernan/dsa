@@ -23,7 +23,7 @@ class Solution:
         left = 0
         sum = 0
         min_length = float('inf')
-
+        print('test')
         for right in range(n):
             sum += nums[right]
 

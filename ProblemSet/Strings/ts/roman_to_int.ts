@@ -50,10 +50,11 @@ function romanToInt(s: string): number {
 
     if (next && next > curr) {
       sum += next - curr
+      i++
     } else {
       sum += curr
     }
 
   }
-  return 0;
+  return sum;
 };

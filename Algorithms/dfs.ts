@@ -37,8 +37,7 @@ const tree: TreeNode = {
  * BFS (Level-order):               1 → 2 → 3 → 4 → 5 → 6
  */
 
-// These only work for trees which are graphs without cycles
-// More specifically, think about whether these make sense for binary, n-ary trees, graphs
+//Binary Trees
 const preOrderRecursiveDfs = (root: TreeNode | null, result: number [] = []): number [] => {
 	if(!root){
 		return result;}
@@ -47,6 +46,24 @@ const preOrderRecursiveDfs = (root: TreeNode | null, result: number [] = []): nu
 	preOrderRecursiveDfs(root.right, result);
 	return result;
 }
+
+const preOrderIterativeDfs = (root: TreeNode | null): number[] => {
+  if (!root) return [];
+
+  const stack: TreeNode[] = [root];
+  const result: number[] = [];
+
+  while (stack.length) {
+    const node = stack.pop()!;
+    result.push(node.val);
+
+    // Push right first so left is processed first
+    if (node.right) stack.push(node.right);
+    if (node.left) stack.push(node.left);
+  }
+
+  return result;
+};
 
 const inOrderRecursiveDfs = (root: TreeNode | null, result: number [] = []) : number [] => {
 	if (!root) return result;
@@ -68,22 +85,7 @@ const postOrderRecursiveDfs = (root: TreeNode | null, result: number [] = []) : 
 	return result;
 }
 
-const preOrderIterativeDfs = (root: TreeNode | null, result: number[] = [])  => {
-	const stack = [];
-	const visited = new Map();
-	const results = [];	
-	stack.push(root);
-
-	while(stack.length){
-		// first we visit
-	}
-}
-//console.log(preOrderRecursiveDfs(tree));
-//console.log(inOrderRecursiveDfs(tree));
-//console.log(postOrderRecursiveDfs(tree));
-
-// dfs graph traversals
-
+//Graphs
 /**
  * Example 1: Adjacency List Graph
  * Graph structure:
@@ -92,7 +94,14 @@ const preOrderIterativeDfs = (root: TreeNode | null, result: number[] = [])  => 
  *   B   C
  *  / \   \
  * D   E   F
+ *
+ * Expected DFS (Depth-First Search) from A:
+ * A → B → D → E → C → F
+ *
+ * Expected BFS (Breadth-First Search) from A:
+ * A → B → C → D → E → F
  */
+
 const graph: Record<string, string[]> = {
 	A: ["B", "C"],
 	B: ["D", "E"],
@@ -102,28 +111,30 @@ const graph: Record<string, string[]> = {
 	F: []
 };
 
-/**
- * Expected DFS (Depth-First Search) from A:
- * A → B → D → E → C → F
- *
- * Expected BFS (Breadth-First Search) from A:
- * A → B → C → D → E → F
- */
 
-const preOrderRecursiveDfsGraph = (node: string, graph: Record<string, string[]>, result: string [] = [], visited: Set<string> = new Set()): string [] => {
-	visited.add(node);
-	result.push(node); 
-	for( const vertex of graph[node]){
-		if(!visited.has(vertex))
-			preOrderRecursiveDfsGraph(vertex, graph, result, visited)
+const preOrderRecursiveDfsGraph = (
+  node: string,
+  graph: Record<string, string[]>,
+  result: string[] = [],
+  visited: Set<string> = new Set()
+): string[] => {
+  // Base case: skip if already visited
+  if (visited.has(node)) return result;
 
-	}
-	return result;
+  // Mark current node as visited
+  visited.add(node);
 
-}
+  // "Preorder" step → visit node before children
+  result.push(node);
 
+  // Recurse on all neighbors (n-ary)
+  for (const neighbor of graph[node] || []) {
+    preOrderRecursiveDfsGraph(neighbor, graph, result, visited);
+  }
 
-console.log(preOrderRecursiveDfsGraph("A", graph));
+  return result;
+};
+
 
 
 const postOrderRecursiveDfsGraph = () => {}
